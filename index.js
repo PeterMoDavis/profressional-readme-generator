@@ -46,7 +46,12 @@ inquirer
     console.log(fileName);
     fs.appendFile(
       `./documents/${fileName}`,
-      JSON.stringify(response),
+      JSON.parse(
+        JSON.stringify(
+          `# ${response.title}\n## Description\n${response.description}\n## Installation\n${response.installation}\n## Usage\n${response.use}\n## Contributing\n${response.contributions}\n## Tests\n${response.test}
+          `
+        )
+      ),
       (err) => {
         err ? console.log(err) : console.log("success!");
       }
