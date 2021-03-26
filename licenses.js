@@ -698,5 +698,5 @@ Public License instead of this License.  But first, please read
 
   mitBadge: `![MIT](https://img.shields.io/badge/LICENSE-MIT-green)`,
 
-  gnuBadge: `!GNU(https://img.shields.io/badge/LICENSE-GNU-lightgrey)`,
+  gnuBadge: `![GNU](https://img.shields.io/badge/LICENSE-GNU-lightgrey)`,
 };

@@ -2,8 +2,6 @@ let fs = require("fs");
 let inquirer = require("inquirer");
 let licenses = require("./licenses.js");
 
-// WHEN I enter my GitHub username
-// THEN this is added to the section of the README entitled Questions, with a link to my GitHub profile
 // WHEN I enter my email address
 // THEN this is added to the section of the README entitled Questions, with instructions on how to reach me with additional questions
 // WHEN I click on the links in the Table of Contents
@@ -47,6 +45,11 @@ inquirer
       name: "username",
     },
     {
+      type: "input",
+      message: "What is your email address?",
+      name: "email",
+    },
+    {
       type: "list",
       message: "Which License to you choose?",
       choices: ["MIT", "GNU"],
@@ -68,16 +71,40 @@ inquirer
       `./documents/${fileName}`,
       JSON.parse(
         JSON.stringify(
-          `${licenses[response.license.toLowerCase() + "Badge"]}\n# ${
-            response.title
-          }\n## Description\n${response.description}\n## Installation\n${
+          //   `${licenses[response.license.toLowerCase() + "Badge"]}\n# ${
+          //     response.title
+          //   }\n## Description\n${response.description}\n## Installation\n${
+          //     response.installation
+          //   }\n## Usage\n${response.use}\n## Contributing\n${
+          //     response.contributions
+          //   }\n## Questions\n[GitHub](https://github.com/${
+          //     response.username
+          //   })\n  ${response.email}\n## Tests\n${response.test}\n## License\n${
+          //     licenses[response.license.toLowerCase()]
+          //   }
+          //   `
+          `${licenses[response.license.toLowerCase() + "Badge"]}\n${
+            response.title ? `# ${response.title}` : ""
+          }\n${
+            response.description
+              ? `## Description\n${response.description}`
+              : ""
+          }\n${
             response.installation
-          }\n## Usage\n${response.use}\n## Contributing\n${
+              ? `## Installation\n${response.installation}`
+              : ""
+          }\n${response.use ? `## Usage\n${response.use}` : ""}\n${
             response.contributions
-          }\n## Questions\n[GitHub](https://github.com/${
-            response.username
-          })\n## Tests\n${response.test}\n## License\n${
-            licenses[response.license.toLowerCase()]
+              ? `## Contributing\n${response.contributions}`
+              : ""
+          }\n${response.test ? `## Tests\n${response.test}` : ""}\n${
+            response.username || response.email
+              ? `## Questions\n[GitHub](https://github.com/${response.username})`
+              : ""
+          }\n${response.email}\n${
+            response.license
+              ? `## License\n${licenses[response.license.toLowerCase()]}`
+              : ""
           }
           `
         )
