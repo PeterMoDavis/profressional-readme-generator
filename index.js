@@ -55,15 +55,27 @@ inquirer
       choices: ["MIT", "GNU"],
       name: "license",
     },
+    {
+      type: "confirm",
+      message: "Would you like a table of contents?",
+      name: "confirmed",
+    },
   ])
   .then((response) => {
-    // console.log(response);
-    // console.log(response.title);
-    // console.log(response.description);
-    // console.log(response.installation);
-    // console.log(response.use);
-    // console.log(response.contributions);
-    // console.log(response.test);
+    function tableOfContents(answers) {
+      if (answers.confirmed) {
+        return `
+## Table of Contents
+${response.description ? `- [Description](#description)` : ""}
+${response.installation ? `- [Installation](#installation)` : ""}
+${response.use ? `- [Usage](#usage)` : ""}
+${response.contributions ? `- [Contributing](#contributing)` : ""}
+${response.test ? `- [Tests](#tests)` : ""}
+${response.username || response.email ? `- [Questions](#questions)` : ""}
+- [License](#license)
+          `;
+      }
+    }
 
     const fileName = `${response.title.split(" ").join("").toLowerCase()}.md`;
     console.log(fileName);
@@ -71,17 +83,6 @@ inquirer
       `./documents/${fileName}`,
       JSON.parse(
         JSON.stringify(
-          //   `${licenses[response.license.toLowerCase() + "Badge"]}\n# ${
-          //     response.title
-          //   }\n## Description\n${response.description}\n## Installation\n${
-          //     response.installation
-          //   }\n## Usage\n${response.use}\n## Contributing\n${
-          //     response.contributions
-          //   }\n## Questions\n[GitHub](https://github.com/${
-          //     response.username
-          //   })\n  ${response.email}\n## Tests\n${response.test}\n## License\n${
-          //     licenses[response.license.toLowerCase()]
-          //   }
           //   `
           `${licenses[response.license.toLowerCase() + "Badge"]}\n${
             response.title ? `# ${response.title}` : ""
@@ -89,7 +90,7 @@ inquirer
             response.description
               ? `## Description\n${response.description}`
               : ""
-          }\n${
+          }\n${tableOfContents(response)}\n${
             response.installation
               ? `## Installation\n${response.installation}`
               : ""
@@ -99,9 +100,9 @@ inquirer
               : ""
           }\n${response.test ? `## Tests\n${response.test}` : ""}\n${
             response.username || response.email
-              ? `## Questions\n[GitHub](https://github.com/${response.username})`
+              ? `## Questions\nFor any additional questions I can be reached at </br>[GitHub](https://github.com/${response.username})</br>`
               : ""
-          }\n${response.email}\n${
+          }  ${response.email}\n\n${
             response.license
               ? `## License\n${licenses[response.license.toLowerCase()]}`
               : ""
