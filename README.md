@@ -4,7 +4,7 @@
 
 ## Description
 
-I built this app so that I could partially automate the task of creating README files for future projects. I purposely built it so I could omit sections and they would automatically not appear in body of the README and the Table of Contents. During the process I learned a lot about node.js, working without a browser, json, npm and Inquirer. Everything in this README except for the screen shot was made with this app.
+I built this app so that I could partially automate the task of creating README files for future projects. I purposely built it so I could omit sections and they would automatically not appear in body of the README and the Table of Contents. During the process I learned a lot about node.js, working without a browser, json, npm and Inquirer. Everything in this README except for the video link was made with this app.
 
 ## Table of Contents
 
