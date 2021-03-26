@@ -19,7 +19,7 @@ I built this app so that I could partially automate the task of creating README 
 ## Usage
 
 Type node index.js into the command line and then answer the prompts to create a README file with that information in it.  
-![Image of the App](./images/app.png)
+[VIDEO DEMO](https://drive.google.com/file/d/1wa0fz7ppLetThCr3q_Mz5cgE443bKaNK/view?usp=sharing)
 
 ## Contributing
 
