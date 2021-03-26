@@ -1,5 +1,13 @@
 let fs = require("fs");
 let inquirer = require("inquirer");
+let licenses = require("./licenses.js");
+
+// WHEN I enter my GitHub username
+// THEN this is added to the section of the README entitled Questions, with a link to my GitHub profile
+// WHEN I enter my email address
+// THEN this is added to the section of the README entitled Questions, with instructions on how to reach me with additional questions
+// WHEN I click on the links in the Table of Contents
+// THEN I am taken to the corresponding section of the README
 
 inquirer
   .prompt([
@@ -33,6 +41,17 @@ inquirer
       message: "Please provide test instructions.",
       name: "test",
     },
+    {
+      type: "input",
+      message: "What is your GitHub username?",
+      name: "username",
+    },
+    {
+      type: "list",
+      message: "Which License to you choose?",
+      choices: ["MIT", "GNU"],
+      name: "license",
+    },
   ])
   .then((response) => {
     // console.log(response);
@@ -42,13 +61,24 @@ inquirer
     // console.log(response.use);
     // console.log(response.contributions);
     // console.log(response.test);
+
     const fileName = `${response.title.split(" ").join("").toLowerCase()}.md`;
     console.log(fileName);
     fs.appendFile(
       `./documents/${fileName}`,
       JSON.parse(
         JSON.stringify(
-          `# ${response.title}\n## Description\n${response.description}\n## Installation\n${response.installation}\n## Usage\n${response.use}\n## Contributing\n${response.contributions}\n## Tests\n${response.test}
+          `${licenses[response.license.toLowerCase() + "Badge"]}\n# ${
+            response.title
+          }\n## Description\n${response.description}\n## Installation\n${
+            response.installation
+          }\n## Usage\n${response.use}\n## Contributing\n${
+            response.contributions
+          }\n## Questions\n[GitHub](https://github.com/${
+            response.username
+          })\n## Tests\n${response.test}\n## License\n${
+            licenses[response.license.toLowerCase()]
+          }
           `
         )
       ),
